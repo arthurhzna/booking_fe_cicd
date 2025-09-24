@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = 'mini-soccer-fe'
+    IMAGE_NAME = 'booking-fe'
     DOCKER_CREDENTIALS = credentials('docker-credential')
     GITHUB_CREDENTIALS = credentials('github-credential')
     SSH_KEY = credentials('ssh-key')
@@ -38,8 +38,8 @@ pipeline {
       steps {
         script {
           echo "GIT_BRANCH: ${env.GIT_BRANCH}"
-          if (env.GIT_BRANCH == 'origin/main') {
-            env.TARGET_BRANCH = 'main'
+          if (env.GIT_BRANCH == 'origin/master') {
+            env.TARGET_BRANCH = 'master'
           } else if (env.GIT_BRANCH == 'origin/development') {
             env.TARGET_BRANCH = 'development'
           }
@@ -114,7 +114,7 @@ pipeline {
     stage('Deploy to Remote Server') {
       steps {
         script {
-          def targetDir = "/home/arthurhozanna123/go/mini-soccer-fe"
+          def targetDir = "/home/arthurhozanna123/go/booking-fe"
           def sshCommandToServer = """
           ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${USERNAME}@${HOST} '
             if [ -d "${targetDir}/.git" ]; then
@@ -130,7 +130,7 @@ pipeline {
             cp .env.example .env
             sed -i "s/^CONSUL_HTTP_URL=.*/CONSUL_HTTP_URL=${CONSUL_HTTP_URL}/" "${targetDir}/.env"
             sed -i "s/^CONSUL_HTTP_TOKEN=.*/CONSUL_HTTP_TOKEN=${CONSUL_HTTP_TOKEN}/" "${targetDir}/.env"
-            sed -i "s/^CONSUL_HTTP_PATH=.*/CONSUL_HTTP_PATH=frontend\\/mini-soccer-fe/" "${targetDir}/.env"
+            sed -i "s/^CONSUL_HTTP_PATH=.*/CONSUL_HTTP_PATH=booking-fe/" "${targetDir}/.env"
             npm run consul
             npm run build
             docker compose up -d --build --force-recreate
