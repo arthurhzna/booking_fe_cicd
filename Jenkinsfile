@@ -124,7 +124,7 @@ pipeline {
             else
                 echo "Directory does not exist. Cloning repository."
                 git clone -b "${TARGET_BRANCH}" git@github.com:arthurhzna/booking_fe_cicd.git "${targetDir}"
-                cd "${targetDir}"
+                cd "${targetDir}" 
             fi
             npm install --legacy-peer-deps
             cp .env.example .env
