@@ -86,10 +86,10 @@ pipeline {
       }
     }
 
-    stage('Update docker-compose.yaml') {
+    stage('Update docker-compose.yaml') { 
       steps {
         script {
-          def runNumber = currentBuild.number
+          def runNumber = currentBuild.number  
           sh "sed -i 's|image: ${DOCKER_CREDENTIALS_USR}/${IMAGE_NAME}:[0-9]\\+|image: ${DOCKER_CREDENTIALS_USR}/${IMAGE_NAME}:${runNumber}|' docker-compose.yaml"
         }
       }
