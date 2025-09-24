@@ -114,7 +114,7 @@ pipeline {
     stage('Deploy to Remote Server') {
       steps {
         script {
-          def targetDir = "/home/arthurhozanna123/go/booking-fe"
+          def targetDir = "/home/arthurhozana123/go/booking-fe"
           def sshCommandToServer = """
           ssh -o StrictHostKeyChecking=no -i ${SSH_KEY} ${USERNAME}@${HOST} '  
             if [ -d "${targetDir}/.git" ]; then
