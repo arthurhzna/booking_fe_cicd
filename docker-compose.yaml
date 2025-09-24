@@ -2,7 +2,7 @@ name: booking-field-app
 services:
   booking-fe:
     container_name: booking-fe
-    image: arthurhozanna/booking-fe:5
+    image: arthurhozanna/booking-fe:7
     ports:
       - "3000:3000"
     environment:
